@@ -1,0 +1,18 @@
+{% extends "base.xhtml" %}
+
+{% block title %}{{ block.super }}: {{ venue.name }}{% endblock %}
+
+{% block content %}
+  <h1>{{ venue.name }}</h1>
+  
+  <h2>Rooms:</h2>
+  <ul>
+    {% for room in venue.room_set.all %}
+      <li>{{ room.name }}</li>
+    {% empty %}
+      <li>No rooms in this venue.</li>
+    {% endfor %}
+  </ul>
+  
+  <a href="{% url 'venue_list' %}">Back to all venues</a>
+{% endblock %}

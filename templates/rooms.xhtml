@@ -1,0 +1,17 @@
+{% extends "base.xhtml" %}
+
+{% block title %}{{ block.super }}: Rooms{% endblock %}
+
+{% block content %}
+  <h1>All Rooms</h1>
+  <ul>
+    {% for room in rooms %}
+      <li>
+        <strong>{{ room.name }}</strong>
+        at <a href="{% url 'venue_list' %}">{{ room.venue.name }}</a>
+      </li>
+    {% empty %}
+      <li>No rooms found.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

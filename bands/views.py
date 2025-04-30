@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from bands.models import Musician
+from .models import Musician, Band, Venue, Room
 
 def musician(request, musician_id):
     musician = get_object_or_404(Musician, id=musician_id)
@@ -24,3 +24,13 @@ def musicians(request):
     }
 
     return render(request, 'musicians.xhtml', data)
+
+    # Room list view
+def room_list(request):
+    rooms = Room.objects.select_related('venue').all()
+    return render(request, 'rooms.xhtml', {'rooms': rooms})
+
+# Single venue view
+def venue_detail(request, venue_id):
+    venue = get_object_or_404(Venue.objects.prefetch_related('room_set'), id=venue_id)
+    return render(request, 'venue.xhtml', {'venue': venue})

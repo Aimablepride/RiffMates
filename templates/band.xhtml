@@ -1,0 +1,32 @@
+{% extends "base.xhtml" %}
+
+{% block title %}{{ block.super }}: {{ band.name }}{% endblock %}
+
+{% block content %}
+  <h1>{{ band.name }}</h1>
+  
+  <div class="details">
+    <h2>Members</h2>
+    <ul class="members">
+      {% for musician in band.musicians.all %}
+        <li>
+          <a href="{% url 'musician' musician.id %}">
+            {{ musician.first_name }} {{ musician.last_name }}
+          </a>
+        </li>
+      {% empty %}
+        <li>No members in this band.</li>
+      {% endfor %}
+    </ul>
+    
+    <h2>Upcoming Shows</h2>
+    <ul class="shows">
+      <!-- You could add shows logic later -->
+      <li>No upcoming shows scheduled.</li>
+    </ul>
+  </div>
+  
+  <div class="actions">
+    <a href="{% url 'band_list' %}" class="back-link">← All Bands</a>
+  </div>
+{% endblock %}
